@@ -1,4 +1,6 @@
+#Packages
 from bs4 import BeautifulSoup
+import re #re stands for Regular Expression
 
 #Read the HTML document that you downloaded. The r is placed before filename to prevent the characters in filename string to be treated as special character.
 soup = BeautifulSoup(open(r"C:\Users\Overw\Downloads\Browse Items - Marketplace.tf.html"), "html.parser")
@@ -8,7 +10,7 @@ soup = BeautifulSoup(open(r"C:\Users\Overw\Downloads\Browse Items - Marketplace.
 txtFile = open("myLinks.txt", "w")
 
 for link in soup.findAll("a"): #Finds all the <a> tags in the document
-    if link.get('href') is not None: #Gets the link (if the link is not #, empty, none or null)
+    if re.match("https:\/\/marketplace.tf\/items\/tf2\/", str(link.get('href'))): #Gets the link (if the link is not #, empty, none or null)
         txtFile.write(link.get('href') + "\n") #Writes the link into the text file and add a line break
 
 #Closes the file once the execution is complete.
